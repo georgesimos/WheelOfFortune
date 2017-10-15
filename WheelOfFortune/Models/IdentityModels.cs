@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
+using WheelOfFortune.Models.Domain;
 
 namespace WheelOfFortune.Models
 {
@@ -16,6 +18,13 @@ namespace WheelOfFortune.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        [Required]
+        [Display(Name = "UserPhoto")]
+        public byte[] UserPhoto { get; set; }
+
+        //[Required]
+        //public virtual Balance Balance { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -24,6 +33,20 @@ namespace WheelOfFortune.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        // DbSets
+        public DbSet<Spin> Spins { get; set; }
+
+        public DbSet<Coupon> Coupons { get; set; }
+
+        public DbSet<Balance> Balances { get; set; }
+
+        public DbSet<Transaction> Transactions { get; set; }
+
+        public DbSet<WheelConfiguration> WheelConfigurations { get; set; }
+
+
+
 
         public static ApplicationDbContext Create()
         {
